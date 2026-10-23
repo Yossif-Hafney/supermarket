@@ -39,6 +39,10 @@ pids/
 
 # Generated Prisma client (backend)
 /supermarket-api/src/generated/prisma/
+.agents/
+.claude/
+.windsurf/
+skills-lock.json
 
 # Operating system
 .DS_Store
