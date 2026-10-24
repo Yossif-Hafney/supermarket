@@ -2,7 +2,7 @@
 
 SuperMarket is a full-stack project with a Nuxt/Vue frontend and a NestJS API. The frontend and API are maintained as separate applications in this repository.
 
-> **Project status:** Both applications are currently at an early scaffold stage. The frontend still renders Nuxt's welcome screen, and the API's domain modules are placeholders without implemented CRUD endpoints or database configuration.
+> **Project status:** Both applications are currently at an early scaffold stage. The frontend still renders Nuxt's welcome screen, and the API's domain modules are placeholders without implemented CRUD endpoints. The API is configured to connect to PostgreSQL using Prisma.
 
 ## Project structure
 
@@ -18,6 +18,7 @@ The API is organized into modules for products, categories, suppliers, purchases
 
 - Node.js and npm
 - pnpm for the frontend
+- PostgreSQL for the API
 
 Use a Node.js version supported by the installed Nuxt and NestJS dependencies.
 
@@ -53,7 +54,7 @@ cd supermarket-api
 npm run start:dev
 ```
 
-The API listens on port `8080` by default. Set the `PORT` environment variable to use another port. Its root route (`GET /`) currently returns a basic running-status response.
+Before starting the API, configure its PostgreSQL connection and initialize the database as described in [Configuration and data storage](#configuration-and-data-storage). The API listens on port `8080` by default. Set the `PORT` environment variable to use another port. Its root route (`GET /`) currently returns a basic running-status response.
 
 The frontend does not currently have API integration configured.
 
@@ -103,4 +104,19 @@ npm run build
 
 ## Configuration and data storage
 
-The API uses `PORT` to configure its listening port. Although TypeORM and the PostgreSQL driver are listed as API dependencies, database connection settings, entities, and migrations have not yet been configured. No database setup is currently required to start the scaffold.
+The API uses Prisma with PostgreSQL. Its Prisma schema is in `supermarket-api/prisma/schema.prisma`; the API connects through Prisma's PostgreSQL adapter using `DATABASE_URL`. A PostgreSQL server and database must be available before starting the API.
+
+Create `supermarket-api/.env` with your connection string (replace the example credentials and database name as needed):
+
+```dotenv
+DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/supermarket?schema=public"
+```
+
+The `.env` file is ignored by Git; do not commit database credentials. From the `supermarket-api` directory, apply the Prisma schema to a new or empty database and generate the Prisma client:
+
+```bash
+npx prisma migrate dev --name init
+npx prisma generate
+```
+
+The API requires a valid `DATABASE_URL` at startup. The `PORT` environment variable configures its listening port.
