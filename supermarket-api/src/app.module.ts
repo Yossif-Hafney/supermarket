@@ -5,16 +5,10 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { ProductsModule } from './products/products.module.js';
-import { CategoriesModule } from './categories/categories.module.js';
 import { SuppliersModule } from './suppliers/suppliers.module.js';
 import { PurchasesModule } from './purchases/purchases.module.js';
-import { SupplierPaymentsModule } from './supplier-payments/supplier-payments.module.js';
-import { StockModule } from './stock/stock.module.js';
 import { SalesModule } from './sales/sales.module.js';
-import { ExpensesModule } from './expenses/expenses.module.js';
-import { CashAccountsModule } from './cash-accounts/cash-accounts.module.js';
-import { DashboardModule } from './dashboard/dashboard.module.js';
-import { ReportsModule } from './reports/reports.module.js';
+
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
 
@@ -30,16 +24,9 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     }),
     PrismaModule,
     ProductsModule,
-    CategoriesModule,
     SuppliersModule,
     PurchasesModule,
-    SupplierPaymentsModule,
-    StockModule,
     SalesModule,
-    ExpensesModule,
-    CashAccountsModule,
-    DashboardModule,
-    ReportsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
