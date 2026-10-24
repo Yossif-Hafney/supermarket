@@ -13,7 +13,7 @@ export class ProductsController {
     }
 
     @Get(':id')
-    @ResponseMessage('Product retrieved successfully')
+    @ResponseMessage('Product retrieved successfully','product')
     findOne(@Param('id', ParseIntPipe) id: number) {
         return this.productsService.findOne(id);
     }
